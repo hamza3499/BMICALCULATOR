@@ -12,9 +12,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedGender = 3, _height = 170, _age = 23, _weight = 65;
-  double _bmi = 0;
-  var _bgcolor = const Color.fromARGB(255, 100, 89, 89);
+  int selectedGender = 3, height = 170, age = 23, weight = 65;
+  double bmi = 0;
+  var bgcolor = const Color.fromARGB(255, 100, 89, 89);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,22 +38,8 @@ class _HomePageState extends State<HomePage> {
           child: _buildUI()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (_bmi > 25) {
-            setState(() {
-              _bgcolor = const Color.fromARGB(255, 188, 5, 5);
-            });
-          } else if (_bmi < 18) {
-            setState(() {
-              _bgcolor = const Color.fromARGB(255, 8, 27, 199);
-            });
-          } else {
-            setState(() {
-              _bgcolor = const Color.fromARGB(238, 5, 229, 5);
-            });
-          }
-
           setState(() {
-            _bmi = _weight / pow(_height / 100, 2);
+            bmi = weight / pow(height / 100, 2);
           });
         },
         child: const Icon(Icons.calculate),
@@ -100,12 +86,12 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    _selectedGender = 0;
+                    selectedGender = 0;
                   });
                 },
                 icon: const Icon(Icons.male),
                 iconSize: 60,
-                color: _selectedGender == 0 ? Colors.blue : Colors.black,
+                color: selectedGender == 0 ? Colors.blue : Colors.black,
               ),
               const Text(
                 'Male',
@@ -118,12 +104,12 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    _selectedGender = 1;
+                    selectedGender = 1;
                   });
                 },
                 icon: const Icon(Icons.female),
                 iconSize: 60,
-                color: _selectedGender == 1 ? Colors.pink : Colors.black,
+                color: selectedGender == 1 ? Colors.pink : Colors.black,
               ),
               const Text(
                 'Female',
@@ -156,14 +142,14 @@ class _HomePageState extends State<HomePage> {
                 min: 0,
                 max: 300,
                 divisions: 300,
-                value: _height.toDouble(),
+                value: height.toDouble(),
                 onChanged: (value) {
                   setState(() {
-                    _height = value.toInt();
+                    height = value.toInt();
                   });
                 }),
             Text(
-              '$_height cm',
+              '$height cm',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             )
           ],
@@ -201,12 +187,12 @@ class _HomePageState extends State<HomePage> {
                 textStyle: const TextStyle(fontSize: 100),
                 buttonSizeHeight: 30,
                 buttonSizeWidth: 50,
-                initialValue: _weight,
+                initialValue: weight,
                 minValue: 50,
                 maxValue: 350,
                 onChanged: (value) {
                   setState(() {
-                    _weight = value.toInt();
+                    weight = value.toInt();
                   });
                 },
                 decimalPlaces: 0)
@@ -233,12 +219,12 @@ class _HomePageState extends State<HomePage> {
                 textStyle: const TextStyle(fontSize: 100),
                 buttonSizeHeight: 30,
                 buttonSizeWidth: 50,
-                initialValue: _age,
+                initialValue: age,
                 minValue: 1,
                 maxValue: 100,
                 onChanged: (value) {
                   setState(() {
-                    _age = value.toInt();
+                    age = value.toInt();
                   });
                 },
                 decimalPlaces: 0)
@@ -249,13 +235,13 @@ class _HomePageState extends State<HomePage> {
   Widget _bmiResult() {
     return Container(
         decoration: BoxDecoration(
-          color: _bgcolor,
+          color: bgcolor,
           borderRadius: BorderRadius.circular(15),
         ),
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Text(
-          'BMI: ${_bmi.toStringAsFixed(2)}',
+          'BMI: ${bmi.toStringAsFixed(2)}',
           style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ));
   }
